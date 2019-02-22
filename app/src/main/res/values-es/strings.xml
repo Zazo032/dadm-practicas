@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btn_about">Acerca de</string>
+    <string name="btn_favorite_quotations">Citas favoritas</string>
+    <string name="btn_get_quotations">Obtener citas</string>
+    <string name="btn_settings">Ajustes</string>
+    <string name="favourite_author_info">Información del autor</string>
+    <string name="quotation_sample_author">Esto es un autor de ejemplo</string>
+    <string name="quotation_sample_text">Esto es una cita de ejemplo</string>
+    <string name="settings_name_placeholder">Introduce tu nombre</string>
+    <string name="settings_name_label">Nombre que identifica al usuario</string>
+    <string name="settings_method_label">Las peticiones web HTTP se realizarán utilizando el protocolo HTTP seleccionado</string>
+    <string name="settings_language_label">Las citas se recibirán en el idioma seleccionado</string>
+    <string name="activity_settings">Ajustes</string>
+    <string name="activity_favourite_quotations">Citas favoritas</string>
+    <string name="activity_random_quotations">Obtener citas</string>
+    <string name="activity_about">Acerca de</string>
+    <string name="about_main_text">Quotation Shake por\n\nYeray Molina García\nCristian Zazo Millán\n\nyemogar@inf.upv.es\ncrizamil@inf.upv.es\n\n2019</string>
+    <string name="quotation_hint">Hola %1s!\nPulsa Refrescar para obtener una nueva cita</string>
+    <string name="language_english">Inglés</string>
+    <string name="language_russian">Ruso</string>
+    <string name="author_anonymous">Anónimo</string>
+    <string name="author_error">No es posible obtener más citas de un autor anónimo.</string>
+    <string name="favourite_dialog_delete">¿Estás seguro de que quieres borrar esta cita?</string>
+    <string name="no">No</string>
+    <string name="yes">Sí</string>
+    <string name="add">Añadir</string>
+    <string name="refresh">Actualizar</string>
+    <string name="clear">Borrar todas</string>
+    <string name="favourite_dialog_clear_all">¿Estás seguro de que quieres borrar TODAS tus citas favoritas?</string>
+</resources>
