@@ -42,4 +42,8 @@ public class Quotation {
     public void setQuoteAuthor(String quoteAuthor) {
         this.quoteAuthor = quoteAuthor;
     }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 }

@@ -2,11 +2,13 @@ package com.czazo.dadm.databases;
 
 import android.content.Context;
 
+import com.czazo.dadm.models.Quotation;
+
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Repository.class}, version = 1)
+@Database(entities = {Quotation.class}, version = 1)
 public abstract class AbstractRepository extends RoomDatabase {
 
     private static AbstractRepository abstractRepository;
