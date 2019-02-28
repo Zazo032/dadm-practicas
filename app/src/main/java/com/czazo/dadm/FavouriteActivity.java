@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.czazo.dadm.adapters.FavouriteListAdapter;
 import com.czazo.dadm.databases.AbstractRepository;
+import com.czazo.dadm.databases.IDAORepository;
 import com.czazo.dadm.databases.Repository;
 import com.czazo.dadm.models.Quotation;
 
@@ -27,14 +28,14 @@ public class FavouriteActivity extends AppCompatActivity {
 
     private List<Quotation> mockList;
     private FavouriteListAdapter fla;
+    private IDAORepository repository;
     private AbstractRepository abstractRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final Repository repository = Repository.getInstance(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite);
-        mockList = repository.getAllQuotation();
+        mockList = repository.listAll();
         fla = new FavouriteListAdapter(this, R.id.favourite_list, mockList);
         ListView list = findViewById(R.id.favourite_list);
         list.setAdapter(fla);
@@ -60,7 +61,14 @@ public class FavouriteActivity extends AppCompatActivity {
                 alertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        repository.deleteQuotation(mockList.get(position));
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                repository.deleteQuotation(mockList.get(position));
+                            }
+                        }).start();
+
                         fla.notifyDataSetChanged();
                     }
                 });
@@ -107,7 +115,14 @@ public class FavouriteActivity extends AppCompatActivity {
                 alertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        repositorio.clearAll();
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                repositorio.clearAll();
+                            }
+                        }).start();
+
                         fla.notifyDataSetChanged();
                         item.setVisible(false);
                     }

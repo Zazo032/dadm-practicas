@@ -13,13 +13,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.czazo.dadm.databases.AbstractRepository;
+import com.czazo.dadm.databases.IDAORepository;
 import com.czazo.dadm.databases.Repository;
+import com.czazo.dadm.models.Quotation;
 
 public class QuotationActivity extends AppCompatActivity {
 
     private int contadorCitasRecibidas = 0;
-    private AbstractRepository abstractRepository;
     private Menu menu;
+    private IDAORepository repository;
+    private AbstractRepository abstractRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +48,20 @@ public class QuotationActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_quotation:
-                // TODO: Añadir cita a favoritos (Práctica 4)
-                TextView anotherHint = findViewById(R.id.quotation_hint);
-                TextView anotherAuthor = findViewById(R.id.sample_author);
+                new Thread(new Runnable() {
+                    // TODO: Añadir cita a favoritos (Práctica 4)
+                    TextView anotherHint = findViewById(R.id.quotation_hint);
+                    TextView anotherAuthor = findViewById(R.id.sample_author);
 
-                String quoteText = anotherHint.getText().toString();
-                String quoteAuthor = anotherAuthor.getText().toString();
+                    String quoteText = anotherHint.getText().toString();
+                    String quoteAuthor = anotherAuthor.getText().toString();
 
-                Repository.getInstance(this).addQuote(quoteText, quoteAuthor);
+                    @Override
+                    public void run() {
+                        repository.addQuote(new Quotation(quoteText, quoteAuthor));
+                    }
+                }).start();
+
                 return true;
             case R.id.refresh_quotation:
                 // TODO: Obtener nueva cita (Práctica 3A)

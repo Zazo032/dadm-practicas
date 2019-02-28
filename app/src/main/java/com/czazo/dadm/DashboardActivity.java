@@ -23,7 +23,12 @@ public class DashboardActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean firstRun = prefs.getBoolean("first_run", false);
         if(firstRun) {
-            repository.clearAll();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    repository.clearAll();
+                }
+            }).start();
             prefs.edit().putBoolean("first_run", false);
         }
 

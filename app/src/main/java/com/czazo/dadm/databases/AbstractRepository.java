@@ -17,7 +17,6 @@ public abstract class AbstractRepository extends RoomDatabase {
         if (abstractRepository == null) {
             abstractRepository = Room
                     .databaseBuilder(context, AbstractRepository.class, "quotation_table")
-                    .allowMainThreadQueries()
                     .build();
         }
         return abstractRepository;
