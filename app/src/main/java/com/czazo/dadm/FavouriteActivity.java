@@ -16,20 +16,25 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.czazo.dadm.adapters.FavouriteListAdapter;
+import com.czazo.dadm.databases.AbstractRepository;
+import com.czazo.dadm.databases.Repository;
 import com.czazo.dadm.models.Quotation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FavouriteActivity extends AppCompatActivity {
 
-    ArrayList<Quotation> mockList;
-    FavouriteListAdapter fla;
+    private List<Quotation> mockList;
+    private FavouriteListAdapter fla;
+    private AbstractRepository abstractRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final Repository repository = Repository.getInstance(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite);
-        mockList = getMockQuotations();
+        mockList = repository.getAllQuotation();
         fla = new FavouriteListAdapter(this, R.id.favourite_list, mockList);
         ListView list = findViewById(R.id.favourite_list);
         list.setAdapter(fla);
@@ -55,7 +60,7 @@ public class FavouriteActivity extends AppCompatActivity {
                 alertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mockList.remove(position);
+                        repository.deleteQuotation(mockList.get(position));
                         fla.notifyDataSetChanged();
                     }
                 });
@@ -93,6 +98,7 @@ public class FavouriteActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
+        final Repository repositorio = Repository.getInstance(this);
         switch (item.getItemId()) {
             case R.id.delete_quotations:
                 // TODO: Obtener nueva cita (Práctica 3A)
@@ -101,7 +107,7 @@ public class FavouriteActivity extends AppCompatActivity {
                 alertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mockList.clear();
+                        repositorio.clearAll();
                         fla.notifyDataSetChanged();
                         item.setVisible(false);
                     }

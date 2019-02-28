@@ -4,4 +4,24 @@
         <item>@string/language_english</item>
         <item>@string/language_russian</item>
     </array>
+    <array name="languagesValue">
+        <item>@string/language_english</item>
+        <item>@string/language_russian</item>
+    </array>
+    <array name="metodos">
+        <item>@string/settings_method_get</item>
+        <item>@string/settings_method_post</item>
+    </array>
+    <array name="metodosValue">
+        <item>@string/settings_method_get</item>
+        <item>@string/settings_method_post</item>
+    </array>
+    <array name="opcionesAcceso">
+        <item>Room</item>
+        <item>SQLiteOpenHelper</item>
+    </array>
+    <array name="opcionesAccesoValues">
+        <item>Room</item>
+        <item>SQLiteOpenHelper</item>
+    </array>
 </resources>
