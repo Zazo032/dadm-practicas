@@ -14,8 +14,8 @@
     sample autor”
     <string name="activity_random_quotations">Random quotations</string>
     <string name="quotation_hint">Hello %1s!\nPress Refresh to get a new quotation</string>
-    <string name="quotation_sample_text">This is a sample quotation, sample quote %1$d</string>
-    <string name="quotation_sample_author">This is a sample author, sample author %1$d</string>
+    <string name="quotation_sample_text">Sample quote %1$d</string>
+    <string name="quotation_sample_author">Sample author %1$d</string>
 
     <!-- Favourite Activity -->
     <string name="activity_favourite_quotations">Favourite quotations</string>
@@ -49,6 +49,5 @@
     <string name="add">Add</string>
     <string name="refresh">Refresh</string>
     <string name="clear">Clear All</string>
-    <string name="title_activity_settings">Settings</string>
 
 </resources>
