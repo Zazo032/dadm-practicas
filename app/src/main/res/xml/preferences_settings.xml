@@ -15,13 +15,13 @@
             android:defaultValue="1"
             android:entries="@array/languages"
             android:entryValues="@array/languagesValue"
-            android:key="@string/language_english"
+            android:key="@string/settings_idioma_key"
             android:title="@string/settings_language_label" />
         <ListPreference
             android:defaultValue="1"
             android:entries="@array/metodos"
             android:entryValues="@array/metodosValue"
-            android:key="@string/settings_method_post"
+            android:key="@string/settings_http_key"
             android:title="@string/settings_method_label" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/settings_databases">

@@ -55,4 +55,12 @@ public class FavouriteListAdapter extends ArrayAdapter {
             author = itemView.findViewById(R.id.quotation_author);
         }
     }
+
+    public List<Quotation> getData() {
+        return data;
+    }
+
+    public void setData(List<Quotation> data) {
+        this.data = data;
+    }
 }

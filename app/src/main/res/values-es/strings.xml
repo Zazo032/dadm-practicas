@@ -12,6 +12,8 @@
     <string name="settings_databases">Databases</string>
     <string name="opcionesAcceso">Opciones de acceso</string>
     <string name="settings_name_label">Nombre que identifica al usuario</string>
+    <string name="settings_idioma_key">idioma</string>
+    <string name="settings_http_key">http</string>
     <string name="settings_method_label">Las peticiones web HTTP se realizarán utilizando el protocolo HTTP seleccionado</string>
     <string name="settings_language_label">Las citas se recibirán en el idioma seleccionado</string>
     <string name="activity_settings">Ajustes</string>

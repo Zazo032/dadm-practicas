@@ -34,6 +34,8 @@
     <string name="settings_method_post" translatable="false">POST</string>
     <string name="settings_databases">Databases</string>
     <string name="opcionesAcceso">Access Options</string>
+    <string name="settings_idioma_key">idioma</string>
+    <string name="settings_http_key">http</string>
 
     <!-- About Activity -->
     <string name="activity_about">About</string>

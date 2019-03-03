@@ -20,6 +20,7 @@ import com.czazo.dadm.databases.AbstractRepository;
 import com.czazo.dadm.databases.IDAORepository;
 import com.czazo.dadm.databases.Repository;
 import com.czazo.dadm.models.Quotation;
+import com.czazo.dadm.tasks.AsyncTaskQuotation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,17 +29,18 @@ public class FavouriteActivity extends AppCompatActivity {
 
     private List<Quotation> mockList;
     private FavouriteListAdapter fla;
-    private IDAORepository repository;
     private AbstractRepository abstractRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite);
-        mockList = repository.listAll();
+        abstractRepository = AbstractRepository.getInstance(this);
+        mockList = new ArrayList<>();
         fla = new FavouriteListAdapter(this, R.id.favourite_list, mockList);
         ListView list = findViewById(R.id.favourite_list);
         list.setAdapter(fla);
+        //Listeners
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -65,7 +67,7 @@ public class FavouriteActivity extends AppCompatActivity {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                repository.deleteQuotation(mockList.get(position));
+                                abstractRepository.idaoRepository().deleteQuotation(mockList.get(position));
                             }
                         }).start();
 
@@ -77,6 +79,10 @@ public class FavouriteActivity extends AppCompatActivity {
                 return true;
             }
         });
+        //Lanzamos tarea en segundo plano
+        AsyncTaskQuotation task = new AsyncTaskQuotation(this);
+        task.repository = abstractRepository;
+        task.execute(true);
     }
 
     ArrayList<Quotation> getMockQuotations() {
@@ -106,7 +112,6 @@ public class FavouriteActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        final Repository repositorio = Repository.getInstance(this);
         switch (item.getItemId()) {
             case R.id.delete_quotations:
                 // TODO: Obtener nueva cita (Práctica 3A)
@@ -119,7 +124,7 @@ public class FavouriteActivity extends AppCompatActivity {
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                repositorio.clearAll();
+                                abstractRepository.idaoRepository().clearAll();
                             }
                         }).start();
 
@@ -133,5 +138,12 @@ public class FavouriteActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void editListAdapter(List<Quotation> quotationList) {
+        mockList = quotationList;
+        fla = new FavouriteListAdapter(this, R.id.favourite_list, mockList);
+        ListView list = findViewById(R.id.favourite_list);
+        list.setAdapter(fla);
     }
 }

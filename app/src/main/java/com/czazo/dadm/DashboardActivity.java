@@ -9,24 +9,26 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Toast;
 
+import com.czazo.dadm.databases.AbstractRepository;
 import com.czazo.dadm.databases.IDAORepository;
 import com.czazo.dadm.databases.Repository;
+import com.czazo.dadm.models.Quotation;
 
 public class DashboardActivity extends AppCompatActivity {
-    IDAORepository repository;
-
+    AbstractRepository repository;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        repository = AbstractRepository.getInstance(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         //Comprobacion creacion base de datos.
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Boolean firstRun = prefs.getBoolean("first_run", false);
+        Boolean firstRun = prefs.getBoolean("first_run", true);
         if(firstRun) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    repository.clearAll();
+                    repository.idaoRepository().listAll();
                 }
             }).start();
             prefs.edit().putBoolean("first_run", false);
