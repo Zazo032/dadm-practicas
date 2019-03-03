@@ -14,24 +14,25 @@ public class Quotation {
 
     @ColumnInfo(name = "quote")
     @NonNull
-    private String quoteText;
+    private String quoteText = "";
 
     @ColumnInfo(name = "author")
     private String quoteAuthor;
 
 
-    public Quotation(String text, String author) {
+    public Quotation(@NonNull String text, String author) {
         quoteText = text;
         quoteAuthor = author;
     }
 
     public Quotation() {}
 
+    @NonNull
     public String getQuoteText() {
         return quoteText;
     }
 
-    public void setQuoteText(String quoteText) {
+    public void setQuoteText(@NonNull  String quoteText) {
         this.quoteText = quoteText;
     }
 

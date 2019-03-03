@@ -44,7 +44,7 @@ public class Repository extends SQLiteOpenHelper {
     }
 
     public List<Quotation> getAllQuotation() {
-        List<Quotation> result = new ArrayList<Quotation>();
+        List<Quotation> result = new ArrayList<>();
         Quotation quote;
 
         SQLiteDatabase database = getReadableDatabase();

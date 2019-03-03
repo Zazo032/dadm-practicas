@@ -5,8 +5,8 @@
     <string name="btn_get_quotations">Obtener citas</string>
     <string name="btn_settings">Ajustes</string>
     <string name="favourite_author_info">Información del autor</string>
-    <string name="quotation_sample_author">Esto es un autor de ejemplo</string>
-    <string name="quotation_sample_text">Esto es una cita de ejemplo</string>
+    <string name="quotation_sample_author">Autor de ejemplo %1$d</string>
+    <string name="quotation_sample_text">Cita de ejemplo %1$d</string>
     <string name="settings_name_placeholder">Introduce tu nombre</string>
     <string name="settings_key">username</string>
     <string name="settings_databases">Databases</string>
