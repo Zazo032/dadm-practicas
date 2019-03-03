@@ -2,11 +2,9 @@ package com.czazo.dadm;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -16,18 +14,17 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.czazo.dadm.databases.AbstractRepository;
-import com.czazo.dadm.databases.IDAORepository;
-import com.czazo.dadm.databases.Repository;
 import com.czazo.dadm.models.Quotation;
 import com.czazo.dadm.tasks.AsyncTaskHttp;
 
 public class QuotationActivity extends AppCompatActivity {
 
-    private int contadorCitasRecibidas = 0;
     private Menu menu;
     private AbstractRepository abstractRepository;
     private Handler handler;
     private AsyncTaskHttp asyncTaskHttp;
+    private boolean isAddVisible = false;
+    private String KEY_AUTHOR = "AUTOR", KEY_QUOTE = "CITA", KEY_ADD = "ADDVISIBLE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +38,6 @@ public class QuotationActivity extends AppCompatActivity {
         } else {
             ((TextView) findViewById(R.id.quotation_hint)).setText(savedInstanceState.getString(KEY_QUOTE));
             ((TextView) findViewById(R.id.sample_author)).setText(savedInstanceState.getString(KEY_AUTHOR));
-            contadorCitasRecibidas = savedInstanceState.getInt(KEY_COUNT);
             isAddVisible = savedInstanceState.getBoolean(KEY_ADD);
         }
         abstractRepository = AbstractRepository.getInstance(this);
@@ -52,7 +48,6 @@ public class QuotationActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putString(KEY_QUOTE, ((TextView) findViewById(R.id.quotation_hint)).getText().toString());
         outState.putString(KEY_AUTHOR, ((TextView) findViewById(R.id.sample_author)).getText().toString());
-        outState.putInt(KEY_COUNT, contadorCitasRecibidas);
         outState.putBoolean(KEY_ADD, isAddVisible);
     }
 
@@ -69,6 +64,8 @@ public class QuotationActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_quotation:
+                item.setVisible(false);
+                isAddVisible = false;
                 new Thread(new Runnable() {
                     TextView anotherHint = findViewById(R.id.quotation_hint);
                     TextView anotherAuthor = findViewById(R.id.sample_author);
@@ -81,25 +78,14 @@ public class QuotationActivity extends AppCompatActivity {
                         abstractRepository.idaoRepository().addQuote(new Quotation(quoteText, quoteAuthor));
                     }
                 }).start();
-                Repository.getInstance(this).addQuote(quoteText, quoteAuthor);
-
-                item.setVisible(false);
-                isAddVisible = false;
                 return true;
             case R.id.refresh_quotation:
-                TextView hint = findViewById(R.id.quotation_hint);
-                TextView author = findViewById(R.id.sample_author);
-                menu.findItem(R.id.add_quotation).setVisible(true);
-                isAddVisible = true;
-                hint.setText(String.format(getString(R.string.quotation_sample_text), contadorCitasRecibidas));
-                author.setText(String.format(getString(R.string.quotation_sample_author), contadorCitasRecibidas));
                 if (comprobarEstadoRed()) {
                     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-                    String metodo = prefs.getString("http","GET");
-                    String idioma = prefs.getString("idioma","Inglés");
+                    String metodo = prefs.getString("http", getString(R.string.settings_method_get));
+                    String idioma = prefs.getString("idioma", getString(R.string.language_english));
                     asyncTaskHttp = new AsyncTaskHttp(this);
                     asyncTaskHttp.execute(idioma, metodo);
-                    contadorCitasRecibidas++;
                 }
                 return true;
             default:
@@ -121,9 +107,8 @@ public class QuotationActivity extends AppCompatActivity {
         author.setText(quotation.getQuoteAuthor());
 
         menu.findItem(R.id.refresh_quotation).setVisible(true);
-        menu.findItem(R.id.add_quotation).setVisible(true);
-
         handler = new Handler();
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -135,6 +120,15 @@ public class QuotationActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             menu.findItem(R.id.add_quotation).setVisible(false);
+                            isAddVisible = false;
+                        }
+                    });
+                } else {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            menu.findItem(R.id.add_quotation).setVisible(true);
+                            isAddVisible = true;
                         }
                     });
                 }

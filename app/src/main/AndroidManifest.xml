@@ -12,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SettingsActivity"
-            android:label="@string/activity_settings"></activity>
-        <activity
             android:name=".DashboardActivity"
             android:label="@string/activity_dashboard">
             <intent-filter>
@@ -39,6 +36,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DashboardActivity" />
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/activity_settings"
+            android:parentActivityName=".DashboardActivity" />
         <activity
             android:name=".AboutActivity"
             android:label="@string/activity_about"

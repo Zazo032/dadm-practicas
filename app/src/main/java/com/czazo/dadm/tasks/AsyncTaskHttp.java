@@ -1,9 +1,7 @@
 package com.czazo.dadm.tasks;
 
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 
 import com.czazo.dadm.QuotationActivity;
 import com.czazo.dadm.models.Quotation;
@@ -20,11 +18,9 @@ import java.net.URL;
 public class AsyncTaskHttp extends AsyncTask<String, Void, Quotation> {
     private final WeakReference<QuotationActivity> activity;
 
-
     public AsyncTaskHttp(QuotationActivity activity) {
         this.activity = new WeakReference<>(activity);
     }
-
 
     @Override
     protected Quotation doInBackground(String... strings) {

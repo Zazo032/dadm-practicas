@@ -17,12 +17,10 @@ import java.util.List;
 
 public class FavouriteListAdapter extends ArrayAdapter {
 
-    private int id;
     private List<Quotation> data;
 
     public FavouriteListAdapter(Context ctx, int id, List<Quotation> data) {
         super(ctx, id, data);
-        this.id = id;
         this.data = data;
     }
 

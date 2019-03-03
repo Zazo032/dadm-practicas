@@ -63,14 +63,13 @@ public class FavouriteActivity extends AppCompatActivity {
                 alertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
                                 abstractRepository.idaoRepository().deleteQuotation(mockList.get(position));
+                                mockList.remove(position);
                             }
                         }).start();
-
                         fla.notifyDataSetChanged();
                     }
                 });
@@ -83,21 +82,6 @@ public class FavouriteActivity extends AppCompatActivity {
         AsyncTaskQuotation task = new AsyncTaskQuotation(this);
         task.repository = abstractRepository;
         task.execute(true);
-    }
-
-    ArrayList<Quotation> getMockQuotations() {
-        ArrayList<Quotation> array = new ArrayList<>();
-        array.add(new Quotation("Quote Text 1", null));
-        array.add(new Quotation("Quote Text 2", ""));
-        array.add(new Quotation("Quote Text 3", "Author 3"));
-        array.add(new Quotation("Quote Text 4", "Author 4"));
-        array.add(new Quotation("Quote Text 5", "Author 5"));
-        array.add(new Quotation("Quote Text 6", "Author 6"));
-        array.add(new Quotation("Quote Text 7", "Author 7"));
-        array.add(new Quotation("Quote Text 8", "Author 8"));
-        array.add(new Quotation("Quote Text 9", "Author 9"));
-        array.add(new Quotation("Quote Text 10", "Author 10"));
-        return array;
     }
 
     @Override
@@ -114,7 +98,6 @@ public class FavouriteActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.delete_quotations:
-                // TODO: Obtener nueva cita (Práctica 3A)
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(FavouriteActivity.this);
                 alertDialog.setMessage(R.string.favourite_dialog_clear_all);
                 alertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -125,11 +108,11 @@ public class FavouriteActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 abstractRepository.idaoRepository().clearAll();
+                                mockList.clear();
                             }
                         }).start();
-
-                        fla.notifyDataSetChanged();
                         item.setVisible(false);
+                        fla.notifyDataSetChanged();
                     }
                 });
                 alertDialog.setNegativeButton(R.string.no, null);
